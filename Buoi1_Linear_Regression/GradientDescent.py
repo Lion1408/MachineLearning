@@ -1,4 +1,4 @@
-# y = x^4 - 2x^2 + sin(2pi/x)
+# y = x^4 - 2x^2 + sin(pi/2)x
 import matplotlib.pyplot as plt
 import math
 from numpy import math
