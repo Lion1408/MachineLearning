@@ -1,29 +1,26 @@
-# y = x^4 - 2x^2 + sin(pi/2)x
 import matplotlib.pyplot as plt
-import math
-from numpy import math
-def Daoham(x) :
-    return 4*x*x*x - 4*x + (math.pi/2)*math.cos(x*math.pi/2)
+import numpy as np
 
-def findx(xo, learning_rate, n) :
-    arrx = []
-    x_new = xo
-    for i in range(n) :
-        x_new -= Daoham(xo)*learning_rate
-        arrx.append(x_new)
-        if Daoham(x_new) < 0.001 :
+def F(x) :
+    return x*x + 2*x
+
+def f(x) :
+    return 2*x + 2
+
+def find(xo, learing_rate) :
+    x = xo
+    while 1 :
+        x -= f(x)*learing_rate
+        plt.plot(x, F(x), 'r<')
+        plt.pause(0.01)
+        if abs(f(x)) < 1e-3 :
             break
-    return x_new, arrx
+    return x
 
-def findy(arrx) :
-    arry = []
-    for i in arrx :
-        arry.append(i*i*i*i - 2*i*i + math.sin(i*math.pi/2))
-    return arry
-x_min, arrx = findx(0, 0.001, 1000)
-arry = findy(arrx)
-plt.title("xmin = {}".format(round(x_min, 2)))
-plt.plot(arrx, arry,'#000')
+x = np.arange(-5, 3, 0.1)
+y = F(x)
+plt.title('$f(x) = x^2 + 2x$')
+plt.plot(x, y)
+res = find(-5, 0.05)
+plt.annotate('x ≈ {}'.format(round(res, 2)), xy = (res,F(res)), xytext = (0, 3) ,arrowprops=dict(arrowstyle='->', connectionstyle='arc3, rad=-0.2'))
 plt.show()
-
-
